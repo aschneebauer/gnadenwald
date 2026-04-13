@@ -1,0 +1,178 @@
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Navbar scroll effect ──
+  const navbar = document.getElementById('navbar');
+  const handleScroll = () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  // ── Mobile Navigation ──
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    navToggle.classList.toggle('active');
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('active');
+    });
+  });
+
+  // ── QR Code Generation ──
+  const qrContainer = document.getElementById('qrCode');
+  if (qrContainer && typeof QRCode !== 'undefined') {
+    new QRCode(qrContainer, {
+      text: window.location.href + '#reservierung',
+      width: 200,
+      height: 200,
+      colorDark: '#3D5137',
+      colorLight: '#FFFFFF',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
+  // ── Scroll Reveal Animation ──
+  const revealElements = document.querySelectorAll(
+    '.section-header, .about-image, .about-content, .room-card, ' +
+    '.activity-card, .qr-card, .booking-form, .contact-card, .contact-map'
+  );
+
+  revealElements.forEach(el => el.classList.add('reveal'));
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // ── Booking Form ──
+  const bookingForm = document.getElementById('bookingForm');
+  if (bookingForm) {
+    const today = new Date().toISOString().split('T')[0];
+    const checkinInput = document.getElementById('checkin');
+    const checkoutInput = document.getElementById('checkout');
+
+    checkinInput.setAttribute('min', today);
+    checkoutInput.setAttribute('min', today);
+
+    checkinInput.addEventListener('change', () => {
+      const nextDay = new Date(checkinInput.value);
+      nextDay.setDate(nextDay.getDate() + 1);
+      checkoutInput.setAttribute('min', nextDay.toISOString().split('T')[0]);
+      if (checkoutInput.value && checkoutInput.value <= checkinInput.value) {
+        checkoutInput.value = nextDay.toISOString().split('T')[0];
+      }
+    });
+
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(bookingForm);
+      const data = Object.fromEntries(formData.entries());
+
+      const subject = encodeURIComponent(
+        `Reservierungsanfrage – ${data.room || 'Zimmer'} (${data.checkin} bis ${data.checkout})`
+      );
+      const body = encodeURIComponent(
+        `Name: ${data.name}\n` +
+        `E-Mail: ${data.email}\n` +
+        `Anreise: ${data.checkin}\n` +
+        `Abreise: ${data.checkout}\n` +
+        `Zimmer: ${data.room || 'Nicht angegeben'}\n` +
+        `Gäste: ${data.guests}\n` +
+        `Nachricht: ${data.message || '-'}`
+      );
+
+      window.location.href = `mailto:info@pilgerhaus-stmartin.at?subject=${subject}&body=${body}`;
+
+      showNotification('Ihre Anfrage wird vorbereitet. Bitte senden Sie die E-Mail ab.');
+    });
+  }
+
+  // ── Notification Helper ──
+  function showNotification(message) {
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    Object.assign(notification.style, {
+      position: 'fixed',
+      bottom: '24px',
+      right: '24px',
+      background: '#3D5137',
+      color: '#fff',
+      padding: '16px 28px',
+      borderRadius: '12px',
+      fontSize: '15px',
+      fontFamily: "'Inter', sans-serif",
+      boxShadow: '0 8px 30px rgba(0,0,0,0.2)',
+      zIndex: '9999',
+      animation: 'slideInNotif 0.4s ease',
+      maxWidth: '360px'
+    });
+
+    document.body.appendChild(notification);
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      notification.style.transform = 'translateY(10px)';
+      notification.style.transition = 'all 0.3s ease';
+      setTimeout(() => notification.remove(), 300);
+    }, 4000);
+  }
+
+  // ── Lightbox for gallery thumbnails ──
+  document.querySelectorAll('.gallery-thumb img, .about-image > img').forEach(img => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      const overlay = document.createElement('div');
+      Object.assign(overlay.style, {
+        position: 'fixed', inset: '0', background: 'rgba(0,0,0,0.85)',
+        zIndex: '10000', display: 'flex', alignItems: 'center',
+        justifyContent: 'center', cursor: 'pointer',
+        animation: 'fadeIn 0.3s ease'
+      });
+      const fullImg = document.createElement('img');
+      fullImg.src = img.src.replace(/\/\d+px-/, '/1920px-');
+      Object.assign(fullImg.style, {
+        maxWidth: '90vw', maxHeight: '90vh', borderRadius: '12px',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
+      });
+      overlay.appendChild(fullImg);
+      overlay.addEventListener('click', () => {
+        overlay.style.opacity = '0';
+        overlay.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => overlay.remove(), 300);
+      });
+      document.body.appendChild(overlay);
+    });
+  });
+
+  // ── Smooth scroll for anchor links ──
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = navbar.offsetHeight + 20;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+});
