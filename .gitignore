@@ -1,0 +1,11 @@
+# Backup der Original-Bilder (vor Optimierung)
+images_original/
+
+# Node
+node_modules/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

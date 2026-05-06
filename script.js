@@ -25,10 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── QR Code Generation ──
+  // Zielt auf die zukünftige offizielle Adresse der Pilgerherberge.
+  const PILGERHERBERGE_URL = 'https://www.psptirol.org/pilgerherberge';
   const qrContainer = document.getElementById('qrCode');
   if (qrContainer && typeof QRCode !== 'undefined') {
     new QRCode(qrContainer, {
-      text: window.location.href + '#reservierung',
+      text: PILGERHERBERGE_URL + '#reservierung',
       width: 200,
       height: 200,
       colorDark: '#3D5137',
@@ -97,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `Nachricht: ${data.message || '-'}`
       );
 
-      window.location.href = `mailto:info@pilgerhaus-stmartin.at?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:pilgerherberge@psptirol.org?subject=${subject}&body=${body}`;
 
       showNotification('Ihre Anfrage wird vorbereitet. Bitte senden Sie die E-Mail ab.');
     });
@@ -148,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animation: 'fadeIn 0.3s ease'
       });
       const fullImg = document.createElement('img');
-      fullImg.src = img.src.replace(/\/\d+px-/, '/1920px-');
+      fullImg.src = img.src;
       Object.assign(fullImg.style, {
         maxWidth: '90vw', maxHeight: '90vh', borderRadius: '12px',
         boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
