@@ -309,8 +309,15 @@
         </div>
 
         <div class="booking-form-wrapper">
-          <form class="booking-form" id="bookingForm" action="#" method="post">
+          <form class="booking-form" id="bookingForm" action="send-reservation.php" method="post" enctype="multipart/form-data" novalidate>
             <h3>Anfrage senden</h3>
+            <!-- Honeypot-Felder (Spam-Schutz) -->
+            <div class="honeypot" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+              <label for="phone_extra">Telefon</label>
+              <input type="text" id="phone_extra" name="phone_extra" tabindex="-1" autocomplete="off">
+            </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Name *</label>
@@ -348,6 +355,23 @@
                   <option value="3">3 Personen</option>
                   <option value="4">4 Personen</option>
                 </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="pilgerpass">Foto Pilgerpass *</label>
+              <p class="form-hint">Bitte laden Sie ein Foto Ihres Pilgerpasses hoch oder fotografieren 
+                Sie ihn direkt mit Ihrer Handy-Kamera.</p>
+              <label class="file-upload" for="pilgerpass">
+                <input type="file" id="pilgerpass" name="pilgerpass" accept="image/*" capture="environment" required>
+                <span class="file-upload-button">
+                  <span class="file-upload-icon">📷</span>
+                  <span class="file-upload-text">Foto wählen oder aufnehmen</span>
+                </span>
+                <span class="file-upload-filename" id="pilgerpassFilename">Keine Datei ausgewählt</span>
+              </label>
+              <div class="file-preview" id="pilgerpassPreview" hidden>
+                <img id="pilgerpassPreviewImg" alt="Vorschau Pilgerpass">
+                <button type="button" class="file-preview-remove" id="pilgerpassRemove" aria-label="Foto entfernen">×</button>
               </div>
             </div>
             <div class="form-group">

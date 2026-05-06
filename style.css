@@ -842,6 +842,119 @@ a:hover {
   min-height: 80px;
 }
 
+.form-hint {
+  font-size: 13px;
+  color: var(--color-text);
+  opacity: 0.75;
+  margin: -2px 0 10px;
+  line-height: 1.5;
+}
+
+/* Honeypot - für Menschen unsichtbar, von Bots oft ausgefüllt */
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.file-upload {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.file-upload input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.file-upload-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--color-cream);
+  color: var(--color-dark);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  transition: all var(--transition);
+}
+
+.file-upload:hover .file-upload-button,
+.file-upload input[type="file"]:focus + .file-upload-button {
+  border-color: var(--color-primary);
+  background: rgba(91, 117, 83, 0.06);
+}
+
+.file-upload-icon {
+  font-size: 18px;
+}
+
+.file-upload-filename {
+  font-size: 13px;
+  color: var(--color-text);
+  opacity: 0.7;
+  word-break: break-all;
+  flex: 1;
+  min-width: 0;
+}
+
+.file-upload.has-file .file-upload-filename {
+  opacity: 1;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.file-preview {
+  position: relative;
+  margin-top: 12px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.file-preview img {
+  display: block;
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+}
+
+.file-preview-remove {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-dark);
+  color: white;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition);
+}
+
+.file-preview-remove:hover {
+  transform: scale(1.1);
+}
+
 .booking-alternatives {
   display: flex;
   justify-content: center;

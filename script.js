@@ -62,11 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
   revealElements.forEach(el => revealObserver.observe(el));
 
   // ── Booking Form ──
+  const PILGERHERBERGE_EMAIL = 'pilgerherberge@psptirol.org';
+  const MAX_PILGERPASS_BYTES = 8 * 1024 * 1024; // 8 MB
+
   const bookingForm = document.getElementById('bookingForm');
   if (bookingForm) {
     const today = new Date().toISOString().split('T')[0];
     const checkinInput = document.getElementById('checkin');
     const checkoutInput = document.getElementById('checkout');
+    const pilgerpassInput = document.getElementById('pilgerpass');
+    const pilgerpassWrapper = pilgerpassInput ? pilgerpassInput.closest('.file-upload') : null;
+    const pilgerpassFilename = document.getElementById('pilgerpassFilename');
+    const pilgerpassPreview = document.getElementById('pilgerpassPreview');
+    const pilgerpassPreviewImg = document.getElementById('pilgerpassPreviewImg');
+    const pilgerpassRemove = document.getElementById('pilgerpassRemove');
 
     checkinInput.setAttribute('min', today);
     checkoutInput.setAttribute('min', today);
@@ -80,28 +89,89 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    bookingForm.addEventListener('submit', (e) => {
+    function resetPilgerpass() {
+      if (!pilgerpassInput) return;
+      pilgerpassInput.value = '';
+      if (pilgerpassPreviewImg.src) URL.revokeObjectURL(pilgerpassPreviewImg.src);
+      pilgerpassPreviewImg.removeAttribute('src');
+      pilgerpassPreview.hidden = true;
+      pilgerpassFilename.textContent = 'Keine Datei ausgewählt';
+      pilgerpassWrapper.classList.remove('has-file');
+    }
+
+    if (pilgerpassInput) {
+      pilgerpassInput.addEventListener('change', () => {
+        const file = pilgerpassInput.files && pilgerpassInput.files[0];
+        if (!file) {
+          resetPilgerpass();
+          return;
+        }
+        if (file.size > MAX_PILGERPASS_BYTES) {
+          showNotification('Das Foto ist zu groß (max. 8 MB). Bitte wählen Sie ein kleineres Bild.');
+          resetPilgerpass();
+          return;
+        }
+        if (pilgerpassPreviewImg.src) URL.revokeObjectURL(pilgerpassPreviewImg.src);
+        pilgerpassPreviewImg.src = URL.createObjectURL(file);
+        pilgerpassPreview.hidden = false;
+        pilgerpassFilename.textContent = file.name;
+        pilgerpassWrapper.classList.add('has-file');
+      });
+    }
+
+    if (pilgerpassRemove) {
+      pilgerpassRemove.addEventListener('click', resetPilgerpass);
+    }
+
+    bookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const formData = new FormData(bookingForm);
-      const data = Object.fromEntries(formData.entries());
+      // HTML5-Validierung manuell auslösen (Form ist novalidate)
+      if (!bookingForm.checkValidity()) {
+        bookingForm.reportValidity();
+        return;
+      }
 
-      const subject = encodeURIComponent(
-        `Reservierungsanfrage – ${data.room || 'Zimmer'} (${data.checkin} bis ${data.checkout})`
-      );
-      const body = encodeURIComponent(
-        `Name: ${data.name}\n` +
-        `E-Mail: ${data.email}\n` +
-        `Anreise: ${data.checkin}\n` +
-        `Abreise: ${data.checkout}\n` +
-        `Zimmer: ${data.room || 'Nicht angegeben'}\n` +
-        `Gäste: ${data.guests}\n` +
-        `Nachricht: ${data.message || '-'}`
-      );
+      const passFile = pilgerpassInput && pilgerpassInput.files && pilgerpassInput.files[0];
+      if (!passFile) {
+        showNotification('Bitte ein Foto Ihres Pilgerpasses hochladen.');
+        return;
+      }
 
-      window.location.href = `mailto:pilgerherberge@psptirol.org?subject=${subject}&body=${body}`;
+      const submitBtn = bookingForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Wird gesendet …';
 
-      showNotification('Ihre Anfrage wird vorbereitet. Bitte senden Sie die E-Mail ab.');
+      try {
+        const response = await fetch(bookingForm.action, {
+          method: 'POST',
+          body: new FormData(bookingForm),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        let result = null;
+        try { result = await response.json(); } catch (_) { /* ignore */ }
+
+        if (response.ok && result && result.ok) {
+          bookingForm.reset();
+          resetPilgerpass();
+          showNotification(result.message || 'Vielen Dank! Ihre Anfrage wurde gesendet.');
+        } else {
+          const msg = (result && result.message)
+            ? result.message
+            : `Fehler beim Senden (Status ${response.status}). Bitte erneut versuchen oder direkt an ${PILGERHERBERGE_EMAIL} schreiben.`;
+          showNotification(msg);
+        }
+      } catch (err) {
+        showNotification(
+          'Verbindungsfehler – die Anfrage konnte nicht gesendet werden. ' +
+          'Bitte Internetverbindung prüfen oder direkt an ' + PILGERHERBERGE_EMAIL + ' schreiben.'
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
     });
   }
 
