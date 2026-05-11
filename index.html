@@ -22,7 +22,6 @@
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="#" class="nav-logo">
-        <span class="logo-icon">✝</span>
         <span class="logo-text">Pilgerherberge<br><small>St. Martin</small></span>
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
@@ -192,6 +191,7 @@
             <ul class="room-amenities">
               <li>🛏️ 2 Stockbetten (4 Schlafplätze)</li>
               <li>🪑 Sitzgelegenheiten</li>
+              <li>🚿 Waschbecken im Zimmer</li>
               <li>🚿 Bad / WC am Gang</li>
               <li>🎒 Trockenraum</li>
             </ul>
@@ -457,14 +457,15 @@
                 <span class="contact-label">E-Mail</span>
                 <a href="mailto:pilgerherberge@psptirol.org">pilgerherberge@psptirol.org</a>
               </div>
-              <div class="contact-item">
-                <span class="contact-label">Check-in</span>
-                <span>15:00 – 19:00 Uhr</span>
-              </div>
-              <div class="contact-item">
-                <span class="contact-label">Check-out</span>
-                <span>bis 10:00 Uhr</span>
-              </div>
+            </div>
+            <div class="contact-checkin">
+              <h4>Check-in</h4>
+              <p>Der Check-in erfolgt bequem über einen <strong>Zugangscode</strong>.
+                Den Code erhalten Sie rechtzeitig vor Ihrer Anreise per E-Mail oder
+                Nachricht. Damit können Sie die Unterkunft selbstständig betreten –
+                unabhängig von einer persönlichen Schlüsselübergabe.</p>
+              <p class="contact-note"><strong>Bitte beachten Sie:</strong> Der
+                Zugangscode ist nur für den Zeitraum Ihres Aufenthalts gültig.</p>
             </div>
             <div class="contact-directions">
               <h4>Wegbeschreibung für Pilger &amp; Wanderer</h4>
@@ -474,10 +475,12 @@
               <p><strong>🥾 Vom Tal aufwärts:</strong> Von Hall in Tirol oder Absam führt 
                 ein gut beschilderter Wanderweg in ca. 1 – 1,5 Stunden hinauf nach Gnadenwald 
                 zur Pilgerherberge St. Martin.</p>
+                <!--
               <p><strong>🚌 Mit Bahn &amp; Bus:</strong> Bahnhof Hall in Tirol, von dort 
                 mit dem Wanderbus oder zu Fuß weiter nach Gnadenwald.</p>
               <p><strong>🎒 Pilgertipp:</strong> Trockenraum für Schuhe und Ausrüstung 
                 sowie Pilgerstempel sind selbstverständlich vorhanden.</p>
+                -->
             </div>
           </div>
         </div>
@@ -491,7 +494,6 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="nav-logo">
-            <span class="logo-icon">✝</span>
             <span class="logo-text">Pilgerherberge<br><small>St. Martin</small></span>
           </div>
           <p>Ein Ort der Einkehr und Ruhe am Jakobsweg in Gnadenwald, Tirol.</p>
@@ -509,9 +511,9 @@
         <div class="footer-links">
           <h4>Rechtliches</h4>
           <ul>
-            <li><a href="#">Impressum</a></li>
-            <li><a href="#">Datenschutz</a></li>
-            <li><a href="#">AGB</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="impressum.html#datenschutz">Datenschutz</a></li>
+            <li><a href="impressum.html#bildnachweis">Bildnachweis</a></li>
           </ul>
         </div>
         <div class="footer-links">
@@ -525,7 +527,6 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 Pilgerherberge St. Martin, Gnadenwald. Alle Rechte vorbehalten.</p>
-        <p class="photo-credits">Fotos: PSP Pilgerherberge St. Martin · &copy; Tourismusverband Hall-Wattens</p>
       </div>
     </div>
   </footer>

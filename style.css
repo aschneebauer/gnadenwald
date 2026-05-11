@@ -1050,11 +1050,14 @@ a:hover {
   color: var(--color-text);
 }
 
+.contact-checkin,
 .contact-directions {
   padding-top: 24px;
+  margin-top: 24px;
   border-top: 1px solid var(--color-border);
 }
 
+.contact-checkin h4,
 .contact-directions h4 {
   font-family: var(--font-heading);
   font-size: 18px;
@@ -1062,11 +1065,20 @@ a:hover {
   color: var(--color-dark);
 }
 
+.contact-checkin p,
 .contact-directions p {
   font-size: 14px;
   color: var(--color-text-light);
   margin-bottom: 8px;
   line-height: 1.6;
+}
+
+.contact-checkin .contact-note {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--color-warm);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
 }
 
 /* ========================================
@@ -1291,4 +1303,154 @@ a:hover {
 
 img {
   background-color: var(--color-warm);
+}
+
+/* ========================================
+   Subpages (Impressum / Datenschutz / Bildnachweis)
+   ======================================== */
+
+.page-subpage {
+  background: var(--color-cream);
+}
+
+.navbar-solid {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 10px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar-solid .nav-logo,
+.navbar-solid .nav-links a {
+  color: var(--color-dark);
+}
+
+.navbar-solid .nav-toggle span {
+  background: var(--color-dark);
+}
+
+.page-hero {
+  padding: 160px 0 60px;
+  background: linear-gradient(180deg, var(--color-warm) 0%, var(--color-cream) 100%);
+  text-align: center;
+}
+
+.page-hero-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+.page-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  color: var(--color-dark);
+  line-height: 1.15;
+}
+
+.section-legal {
+  padding: 60px 0 100px;
+}
+
+.container-narrow {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.legal-block {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 36px 40px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.legal-block h2 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+}
+
+.legal-block h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--color-primary-dark);
+  margin: 24px 0 8px;
+}
+
+.legal-block p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.legal-block a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-block a:hover {
+  color: var(--color-primary-dark);
+}
+
+.legal-meta {
+  font-size: 13px;
+  color: var(--color-text-light);
+  margin-bottom: 20px !important;
+  font-style: italic;
+}
+
+.legal-note {
+  padding: 12px 16px;
+  background: var(--color-warm);
+  border-radius: var(--radius-sm);
+  font-size: 13px !important;
+  color: var(--color-text-light);
+}
+
+.legal-block em {
+  color: var(--color-accent);
+  background: rgba(196, 149, 106, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-style: normal;
+}
+
+.legal-back {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.legal-back a {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: var(--color-primary);
+  text-decoration: none;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 50px;
+  transition: all var(--transition);
+}
+
+.legal-back a:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+@media (max-width: 600px) {
+  .legal-block {
+    padding: 24px 22px;
+  }
+  .page-hero {
+    padding: 130px 0 40px;
+  }
 }
