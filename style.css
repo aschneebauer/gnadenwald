@@ -407,12 +407,16 @@ a:hover {
 
 .about-image {
   position: relative;
+}
+
+.about-image-frame {
+  position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
 }
 
-.about-image::before {
+.about-image-frame::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -425,7 +429,7 @@ a:hover {
   );
 }
 
-.about-image img {
+.about-image-frame img {
   width: 100%;
   height: 500px;
   object-fit: cover;
@@ -562,11 +566,14 @@ a:hover {
 
 .rooms-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 420px));
+  justify-content: center;
   gap: 28px;
 }
 
 .room-card {
+  display: flex;
+  flex-direction: column;
   background: var(--color-white);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -610,6 +617,9 @@ a:hover {
 }
 
 .room-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 24px;
 }
 
@@ -643,24 +653,23 @@ a:hover {
   color: var(--color-text-light);
 }
 
-.room-price {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  padding-top: 16px;
+.room-cta {
+  margin-top: auto;
+  padding-top: 20px;
   border-top: 1px solid var(--color-border);
 }
 
-.price {
-  font-family: var(--font-heading);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--color-primary-dark);
+.room-cta .btn {
+  padding: 12px 24px;
+  font-size: 14px;
 }
 
-.per-night {
-  font-size: 13px;
+.cta-hint {
+  margin-top: 10px;
+  font-size: 12px;
   color: var(--color-text-light);
+  text-align: center;
+  line-height: 1.4;
 }
 
 /* ========================================
@@ -1157,7 +1166,7 @@ a:hover {
     gap: 40px;
   }
 
-  .about-image img {
+  .about-image-frame img {
     height: 350px;
   }
 
