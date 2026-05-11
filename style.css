@@ -688,6 +688,7 @@ a:hover {
 
 .activity-card {
   display: flex;
+  flex-direction: column;
   background: var(--color-cream);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -700,20 +701,27 @@ a:hover {
 }
 
 .activity-image {
-  width: 140px;
-  flex-shrink: 0;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 
 .activity-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.activity-card:hover .activity-image img {
+  transform: scale(1.04);
 }
 
 .activity-content {
-  padding: 20px;
+  padding: 22px 24px 24px;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .activity-content h3 {
@@ -736,6 +744,96 @@ a:hover {
   font-size: 13px;
   font-weight: 500;
   color: var(--color-primary);
+}
+
+/* Gut zu wissen für Pilger */
+.pilger-info {
+  margin-top: 60px;
+  padding-top: 50px;
+  border-top: 1px solid var(--color-border);
+}
+
+.pilger-info-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pilger-info-header h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-top: 8px;
+}
+
+.pilger-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.pilger-info-card {
+  background: var(--color-warm);
+  border-radius: var(--radius-md);
+  padding: 28px 26px;
+}
+
+.pilger-info-card h4 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--color-primary-dark);
+  margin-bottom: 14px;
+}
+
+.pilger-info-card p,
+.pilger-info-card ul {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--color-text);
+}
+
+.pilger-info-list {
+  list-style: none;
+  padding: 0;
+}
+
+.pilger-info-list li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 6px;
+}
+
+.pilger-info-list li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  top: -2px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.pilger-info-route {
+  text-align: center;
+  font-weight: 500;
+  color: var(--color-dark);
+  line-height: 1.5;
+}
+
+.pilger-info-route span {
+  color: var(--color-accent);
+  font-size: 14px;
+  line-height: 1;
+  display: inline-block;
+  margin: 2px 0;
+}
+
+@media (max-width: 900px) {
+  .pilger-info-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 /* ========================================
@@ -1235,12 +1333,7 @@ a:hover {
     grid-template-columns: 1fr;
   }
 
-  .activity-card {
-    flex-direction: column;
-  }
-
   .activity-image {
-    width: 100%;
     height: 180px;
   }
 
