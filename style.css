@@ -516,6 +516,63 @@ a:hover {
   font-size: 12px;
 }
 
+/* Lightbox (Galerie-Zoom) */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  animation: fadeIn 0.3s ease;
+}
+
+.lightbox-overlay.is-closing {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--color-white);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: scale(1.05);
+}
+
+.lightbox-close:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
 .about-lead {
   font-size: 19px;
   line-height: 1.8;

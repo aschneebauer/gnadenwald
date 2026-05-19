@@ -213,25 +213,43 @@ document.addEventListener('DOMContentLoaded', () => {
     img.style.cursor = 'pointer';
     img.addEventListener('click', () => {
       const overlay = document.createElement('div');
-      Object.assign(overlay.style, {
-        position: 'fixed', inset: '0', background: 'rgba(0,0,0,0.85)',
-        zIndex: '10000', display: 'flex', alignItems: 'center',
-        justifyContent: 'center', cursor: 'pointer',
-        animation: 'fadeIn 0.3s ease'
-      });
+      overlay.className = 'lightbox-overlay';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'Bild vergrößert');
+
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'lightbox-close';
+      closeBtn.setAttribute('aria-label', 'Schließen');
+      closeBtn.innerHTML = '&times;';
+
       const fullImg = document.createElement('img');
+      fullImg.className = 'lightbox-img';
       fullImg.src = img.src;
-      Object.assign(fullImg.style, {
-        maxWidth: '90vw', maxHeight: '90vh', borderRadius: '12px',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
-      });
-      overlay.appendChild(fullImg);
-      overlay.addEventListener('click', () => {
-        overlay.style.opacity = '0';
-        overlay.style.transition = 'opacity 0.3s ease';
+      fullImg.alt = img.alt || '';
+
+      const closeLightbox = () => {
+        overlay.classList.add('is-closing');
+        document.removeEventListener('keydown', onKeydown);
         setTimeout(() => overlay.remove(), 300);
+      };
+
+      const onKeydown = (e) => {
+        if (e.key === 'Escape') closeLightbox();
+      };
+
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeLightbox();
       });
+      fullImg.addEventListener('click', (e) => e.stopPropagation());
+      overlay.addEventListener('click', closeLightbox);
+      document.addEventListener('keydown', onKeydown);
+
+      overlay.append(closeBtn, fullImg);
       document.body.appendChild(overlay);
+      closeBtn.focus();
     });
   });
 
