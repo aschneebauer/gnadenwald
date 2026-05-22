@@ -206,7 +206,8 @@ a:hover {
   text-align: center;
   color: var(--color-white);
   background-size: cover;
-  background-position: center;
+  /* Turm steht im Motiv oben rechts – Fokuspunkt statt center, damit er bei wechselndem Seitenverhältnis nicht abgeschnitten wird */
+  background-position: 58% top;
   background-repeat: no-repeat;
   background-color: #3D5137;
 }
@@ -216,9 +217,9 @@ a:hover {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.2) 40%,
-    rgba(0, 0, 0, 0.5) 100%
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.12) 40%,
+    rgba(0, 0, 0, 0.38) 100%
   );
 }
 
@@ -535,8 +536,19 @@ a:hover {
   transition: opacity 0.3s ease;
 }
 
-.lightbox-img {
+.lightbox-frame {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
   max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightbox-img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
   max-height: 90vh;
   border-radius: var(--radius-md);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -545,31 +557,34 @@ a:hover {
 
 .lightbox-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 48px;
-  height: 48px;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--color-white);
-  font-size: 28px;
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 22px;
+  font-weight: 300;
   line-height: 1;
   cursor: pointer;
-  transition: background var(--transition), transform var(--transition);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
 
 .lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.28);
-  transform: scale(1.05);
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .lightbox-close:focus-visible {
-  outline: 2px solid var(--color-white);
+  outline: 1px solid rgba(255, 255, 255, 0.45);
   outline-offset: 2px;
 }
 
@@ -749,7 +764,7 @@ a:hover {
 
 .activities-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 24px;
 }
 

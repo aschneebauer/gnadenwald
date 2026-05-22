@@ -229,6 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
       fullImg.src = img.src;
       fullImg.alt = img.alt || '';
 
+      const frame = document.createElement('div');
+      frame.className = 'lightbox-frame';
+
       const closeLightbox = () => {
         overlay.classList.add('is-closing');
         document.removeEventListener('keydown', onKeydown);
@@ -247,7 +250,8 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.addEventListener('click', closeLightbox);
       document.addEventListener('keydown', onKeydown);
 
-      overlay.append(closeBtn, fullImg);
+      frame.append(fullImg, closeBtn);
+      overlay.append(frame);
       document.body.appendChild(overlay);
       closeBtn.focus();
     });
