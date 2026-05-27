@@ -24,6 +24,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ── Nav-Buchen-Button: scrollt zu Zimmern + lenkt Aufmerksamkeit auf Buchen-Buttons ──
+  const navBookBtn = document.getElementById('navBookBtn');
+  if (navBookBtn) {
+    navBookBtn.addEventListener('click', () => {
+      const roomBookButtons = document.querySelectorAll('.room-card .btn-primary');
+      if (!roomBookButtons.length) return;
+      // Kurze Verzögerung, damit der Smooth-Scroll abgeschlossen ist, bevor der Puls startet
+      window.setTimeout(() => {
+        roomBookButtons.forEach(btn => {
+          btn.classList.remove('attention-pulse');
+          void btn.offsetWidth; // Reflow erzwingen, damit Animation erneut startbar ist
+          btn.classList.add('attention-pulse');
+        });
+        window.setTimeout(() => {
+          roomBookButtons.forEach(btn => btn.classList.remove('attention-pulse'));
+        }, 2400);
+      }, 700);
+    });
+  }
+
   // ── QR Code Generation ──
   // Zielt auf die zukünftige offizielle Adresse der Pilgerherberge.
   const PILGERHERBERGE_URL = 'https://www.psptirol.org/pilgerherberge';
