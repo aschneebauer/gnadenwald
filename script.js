@@ -39,6 +39,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── OpenStreetMap (Leaflet) – Pilgerherberge St. Martin, Gnadenwald ──
+  const mapEl = document.getElementById('osmMap');
+  if (mapEl && typeof L !== 'undefined') {
+    // Koordinaten Kloster St. Martin, Gnadenwald 1, 6069 Gnadenwald (Tirol)
+    const POSITION = [47.32046118146713, 11.553020974829453];
+
+    const osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-Mitwirkende'
+    });
+
+    const satLayer = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        maxZoom: 18,
+        maxNativeZoom: 18,
+        attribution: 'Luftbild: Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a> &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community'
+      }
+    );
+
+    const map = L.map(mapEl, {
+      center: POSITION,
+      zoom: 14,
+      scrollWheelZoom: false,
+      layers: [osmLayer]
+    });
+
+    L.control.layers(
+      { 'Karte': osmLayer, 'Satellit': satLayer },
+      null,
+      { position: 'topright', collapsed: false }
+    ).addTo(map);
+
+    const pilgerIcon = L.divIcon({
+      className: 'pilger-marker',
+      html: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="48" viewBox="0 0 36 48" aria-hidden="true">' +
+            '<path d="M18 0C8.06 0 0 8.06 0 18c0 12.6 18 30 18 30s18-17.4 18-30C36 8.06 27.94 0 18 0z" fill="#5B7553" stroke="#3D5137" stroke-width="1.5"/>' +
+            '<circle cx="18" cy="18" r="7" fill="#FFFFFF"/>' +
+            '<path d="M18 13.5v9M13.5 18h9" stroke="#5B7553" stroke-width="2" stroke-linecap="round"/>' +
+            '</svg>',
+      iconSize: [36, 48],
+      iconAnchor: [18, 46],
+      popupAnchor: [0, -42]
+    });
+
+    L.marker(POSITION, { icon: pilgerIcon }).addTo(map)
+      .bindPopup('<strong>PSP Pilgerherberge St. Martin</strong><br>Gnadenwald 1, 6069 Gnadenwald')
+      .openPopup();
+
+    mapEl.addEventListener('click', () => { map.scrollWheelZoom.enable(); });
+    mapEl.addEventListener('mouseleave', () => { map.scrollWheelZoom.disable(); });
+  }
+
   // ── Scroll Reveal Animation ──
   const revealElements = document.querySelectorAll(
     '.section-header, .about-image, .about-content, .room-card, ' +

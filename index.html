@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">
   {
@@ -26,7 +27,7 @@
     "name": "PSP Pilgerherberge St. Martin",
     "url": "https://www.psptirol.org/pilgerherberge/",
     "image": "https://www.psptirol.org/pilgerherberge/images/St.Martin/neu/Kloster-St-Martin-6.jpg",
-    "telephone": "+43-5223-52511-00",
+    "telephone": "+43-50-2210-4911",
     "email": "pilgerherberge@psptirol.org",
     "address": {
       "@type": "PostalAddress",
@@ -36,6 +37,21 @@
       "addressRegion": "Tirol",
       "addressCountry": "AT"
     },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "contactType": "reservations",
+        "telephone": "+43-50-2210-4911",
+        "email": "pilgerherberge@psptirol.org",
+        "availableLanguage": ["de"],
+        "hoursAvailable": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "12:00"
+        }
+      }
+    ],
     "sameAs": [
       "https://www.psptirol.org/pilgerherberge/",
       "https://www.hall-wattens.at"
@@ -55,7 +71,9 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
+        <!--
         <li><a href="#ueber-uns">Über uns</a></li>
+        -->
         <li><a href="#zimmer">Zimmer</a></li>
         <li><a href="#umgebung">Umgebung</a></li>
         <!-- vorerst ausgeblendet: Reservierung -->
@@ -66,7 +84,7 @@
   </nav>
 
   <!-- Hero Section -->
-  <header class="hero" id="hero" style="background-image: url('images/St.Martin/neu/Kloster-St-Martin-6.jpg');">
+  <header class="hero" id="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <p class="hero-subtitle">Willkommen</p>
@@ -111,11 +129,11 @@
               <span>Pergola</span>
             </div>
             <div class="gallery-thumb">
-              <img src="images/St.Martin/neu/Kloster-St-Martin-5.jpg" alt="Klosteranlage St. Martin" loading="lazy">
-              <span>Klosteranlage</span>
+              <img src="images/St.Martin/IMG_20260504_125533236_HDR.jpg" alt="Kapelle St. Martin" loading="lazy">
+              <span>Kapelle St. Martin</span>
             </div>
             <div class="gallery-thumb">
-              <img src="images/St.Martin/neu/Kloster-St-Martin-9.jpg" alt="Kraftort St. Martin" loading="lazy">
+              <img src="images/St.Martin/Steinlabyrinth.JPG" alt="Kretisches Steinlabyrinth – Kraftort am Kloster St. Martin" loading="lazy">
               <span>Kraftort</span>
             </div>
             <div class="gallery-thumb">
@@ -194,11 +212,10 @@
               <li>🛏️ 2 Einzelbetten</li>
               <li>🪑 Eckbank &amp; Tisch</li>
               <li>🚿 Bad / WC am Gang</li>
-              <li>🎒 Trockenraum</li>
             </ul>
             <div class="room-cta">
-              <button type="button" class="btn btn-primary btn-block btn-disabled" disabled aria-disabled="true">Buchungslink folgt</button>
-              <p class="cta-hint">Buchung über Tourismusverband Hall-Wattens (Link wird ergänzt)</p>
+              <a href="https://www.hall-wattens.at/de/gnadenwald/unterkuenfte/details/jugendherberge/psp-pilgerherberge-st-martin.html?adults1=1&dateFrom=&dateTo=#rooms" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">Jetzt buchen</a>
+              <p class="cta-hint">Buchung über Tourismusverband Hall-Wattens</p>
             </div>
           </div>
         </div>
@@ -217,11 +234,10 @@
               <li>🪑 Sitzgelegenheiten</li>
               <li>🚿 Waschbecken im Zimmer</li>
               <li>🚿 Bad / WC am Gang</li>
-              <li>🎒 Trockenraum</li>
             </ul>
             <div class="room-cta">
-              <button type="button" class="btn btn-primary btn-block btn-disabled" disabled aria-disabled="true">Buchungslink folgt</button>
-              <p class="cta-hint">Buchung über Tourismusverband Hall-Wattens (Link wird ergänzt)</p>
+              <a href="https://www.hall-wattens.at/de/gnadenwald/unterkuenfte/details/jugendherberge/psp-pilgerherberge-st-martin.html?adults1=1&dateFrom=&dateTo=#rooms" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">Jetzt buchen</a>
+              <p class="cta-hint">Buchung über Tourismusverband Hall-Wattens</p>
             </div>
           </div>
         </div>
@@ -257,7 +273,7 @@
 
         <div class="activity-card">
           <div class="activity-image">
-            <img src="images/Fotos/IMG_20260504_155814792_HDR.jpg" alt="Wanderweg am Tiroler Jakobsweg mit Blick auf Gnadenwald und Kirche" loading="lazy">
+            <img src="images/Fotos/IMG_20260504_155814792_HDR.jpg" alt="Wanderweg am Tiroler Jakobsweg mit Blick auf Gnadenwald und Kirche" loading="lazy" class="img-brighten">
           </div>
           <div class="activity-content">
             <h3>Tiroler Jakobsweg</h3>
@@ -270,7 +286,7 @@
 
         <div class="activity-card">
           <div class="activity-image">
-            <img src="images/Gnadenwald/Sommer-in-Gnadenwald.jpg" alt="Sommerliche Ansicht von Gnadenwald mit Kirche St. Martin am Besinnungsweg" loading="lazy" style="object-position: center 30%;">
+            <img src="images/St.Martin/web-Kloster-St.-Martin-Gnadenwald-Kraftort-hall-wattens.at-13%C2%A9tourismusverbandhallwattens.jpg" alt="Kraftort am Besinnungsweg beim Kloster St. Martin in Gnadenwald" loading="lazy">
           </div>
           <div class="activity-content">
             <h3>Besinnungsweg &amp; Steinlabyrinth</h3>
@@ -283,11 +299,11 @@
 
         <div class="activity-card">
           <div class="activity-image">
-            <img src="images/Fotos/IMG_20260504_131347908_HDR.jpg" alt="Gnadenwalder Baumpfad zwischen Kloster St. Martin und Kloster St. Michael" loading="lazy" style="object-position: center 60%;">
+            <img src="images/Fotos/IMG_20260504_131347908_HDR.jpg" alt="Gnadenwalder Baumpfad zwischen Kloster St. Martin und Pfarrkirche St. Michael" loading="lazy" style="object-position: center 60%;">
           </div>
           <div class="activity-content">
             <h3>Gnadenwalder Baumpfad</h3>
-            <p>Leichte 3-km-Wanderung von Kloster St. Martin zu Kloster St. Michael mit 
+            <p>Leichte 3-km-Wanderung von Kloster St. Martin zur Pfarrkirche St. Michael mit 
               15 Stationen zu heimischen Alpenbäumen – familienfreundlich, mit Blick auf 
               die Karwendelkette.</p>
             <span class="activity-meta">🌲 ca. 35 Min · leicht</span>
@@ -308,11 +324,11 @@
 
         <div class="activity-card">
           <div class="activity-image">
-            <img src="images/St.Michael/neu/Kloster-St-Michael.jpg" alt="Kloster St. Michael in Gnadenwald" loading="lazy">
+            <img src="images/St.Michael/neu/Kloster-St-Michael.jpg" alt="Pfarrkirche St. Michael in Gnadenwald" loading="lazy">
           </div>
           <div class="activity-content">
-            <h3>Kloster St. Michael</h3>
-            <p>Das zweite historische Kloster Gnadenwalds liegt am Fuße des Karwendel – Endpunkt 
+            <h3>Pfarrkirche St. Michael</h3>
+            <p>Die zweite historische Kirche Gnadenwalds liegt am Fuße des Karwendel – Endpunkt 
               des Baumpfads und beschauliches Wanderziel inmitten der Tiroler Bergwelt.</p>
             <span class="activity-meta">⛪ Am Baumpfad</span>
           </div>
@@ -346,7 +362,7 @@
 
         <div class="activity-card">
           <div class="activity-image">
-            <img src="images/Maria%20Larch/neu/Maria-Larch-Wallfahrtskapelle-2.jpg" alt="Außenansicht der Wallfahrtskapelle Maria Larch in Gnadenwald" loading="lazy">
+            <img src="images/Maria%20Larch/web-Maria-Larch-Wallfahrtskapelle-4%C2%A9tourismusverbandhallwattens.jpg" alt="Außenansicht der Wallfahrtskapelle Maria Larch in Gnadenwald" loading="lazy">
           </div>
           <div class="activity-content">
             <h3>Maria Larch</h3>
@@ -463,7 +479,14 @@
           <div class="alt-icon">📞</div>
           <div>
             <strong>Telefon</strong>
-            <a href="tel:+4352235251100">+43 (0) 5223 52511 00</a>
+            <a href="tel:+435022104911">+43 502210 4911</a>
+          </div>
+        </div>
+        <div class="alt-method">
+          <div class="alt-icon">📱</div>
+          <div>
+            <strong>Mobil</strong>
+            <a href="tel:+4367683554911">+43 676 83553 4911</a>
           </div>
         </div>
         <div class="alt-method">
@@ -477,7 +500,7 @@
           <div class="alt-icon">📍</div>
           <div>
             <strong>Adresse</strong>
-            <span>PSP Pilgerherberge St. Martin<br>Gnadenwald 1, Tür St. Martin<br>6069 Gnadenwald, Tirol, Austria</span>
+            <span>PSP Pilgerherberge St. Martin<br>Gnadenwald 1<br>6069 Gnadenwald, Tirol, Austria</span>
           </div>
         </div>
       </div>
@@ -493,16 +516,7 @@
       </div>
       <div class="contact-grid">
         <div class="contact-map">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2706.5!2d11.4919!3d47.3097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479d6ecdb6d3e9e7%3A0x4b3b8a3b3e3b3b3b!2sGnadenwald%2C%20Austria!5e0!3m2!1sde!2sat!4v1700000000000!5m2!1sde!2sat" 
-            width="100%" 
-            height="400" 
-            style="border:0; border-radius: 12px;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Karte Gnadenwald">
-          </iframe>
+          <div id="osmMap" role="application" aria-label="Karte: Pilgerherberge St. Martin in Gnadenwald"></div>
         </div>
         <div class="contact-info">
           <div class="contact-card">
@@ -510,11 +524,15 @@
             <div class="contact-details">
               <div class="contact-item">
                 <span class="contact-label">Adresse</span>
-                <span>PSP Pilgerherberge St. Martin<br>Gnadenwald 1, Tür St. Martin<br>6069 Gnadenwald<br>Tirol, Austria</span>
+                <span>PSP Pilgerherberge St. Martin<br>Gnadenwald 1<br>6069 Gnadenwald<br>Tirol, Austria</span>
               </div>
               <div class="contact-item">
                 <span class="contact-label">Telefon</span>
-                <a href="tel:+4352235251100">+43 (0) 5223 52511 00</a>
+                <div class="contact-phones">
+                  <a href="tel:+435022104911">+43 502210 4911</a>
+                  <a href="tel:+4367683554911">+43 676 83553 4911 <span class="phone-hint">(Mobil)</span></a>
+                  <small class="phone-hours">Mo&ndash;Fr 08:00&ndash;12:00 Uhr</small>
+                </div>
               </div>
               <div class="contact-item">
                 <span class="contact-label">E-Mail</span>
@@ -524,7 +542,7 @@
             <div class="contact-checkin">
               <h4>Check-in</h4>
               <p>Der Check-in erfolgt bequem über einen <strong>Zugangscode</strong>.
-                Den Code erhalten Sie rechtzeitig vor Ihrer Anreise per E-Mail oder
+                Den Code erhalten Sie rechtzeitig vor Ihrer Ankunft per E-Mail oder
                 Nachricht. Damit können Sie die Unterkunft selbstständig betreten –
                 unabhängig von einer persönlichen Schlüsselübergabe.</p>
               <p class="contact-note"><strong>Bitte beachten Sie:</strong> Der
@@ -596,6 +614,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="script.js"></script>
 </body>
 </html>
