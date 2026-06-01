@@ -1727,6 +1727,40 @@ img {
   color: var(--color-primary-dark);
 }
 
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.legal-table th,
+.legal-table td {
+  padding: 10px 0;
+  vertical-align: top;
+  text-align: left;
+  color: var(--color-text);
+  border-bottom: 1px solid rgba(91, 117, 83, 0.12);
+}
+
+.legal-table tr:last-child th,
+.legal-table tr:last-child td {
+  border-bottom: none;
+}
+
+.legal-table th {
+  width: 38%;
+  min-width: 200px;
+  padding-right: 28px;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+
+.legal-table td {
+  width: 62%;
+}
+
 .legal-meta {
   font-size: 13px;
   color: var(--color-text-light);
@@ -1774,6 +1808,21 @@ img {
 @media (max-width: 600px) {
   .legal-block {
     padding: 24px 22px;
+  }
+  .legal-table th,
+  .legal-table td {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding-right: 0;
+  }
+  .legal-table th {
+    padding-bottom: 4px;
+    border-bottom: none;
+  }
+  .legal-table td {
+    padding-top: 0;
+    padding-bottom: 14px;
   }
   .page-hero {
     padding: 130px 0 40px;
