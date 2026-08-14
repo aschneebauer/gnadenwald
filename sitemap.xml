@@ -21,6 +21,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://www.psptirol.org/pilgerherberge/ueber-uns.html</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.psptirol.org/pilgerherberge/images/St.Martin/neu/Kloster-St-Martin-6.jpg</image:loc>
+      <image:title>Klosteranlage St. Martin in Gnadenwald, Tirol</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.psptirol.org/pilgerherberge/impressum.html</loc>
     <lastmod>2026-05-27</lastmod>
     <changefreq>yearly</changefreq>

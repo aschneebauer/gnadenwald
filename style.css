@@ -1858,6 +1858,34 @@ img {
   font-style: normal;
 }
 
+.story-figure {
+  margin-bottom: 28px;
+}
+
+.story-block {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 36px 40px;
+  box-shadow: var(--shadow-sm);
+}
+
+.story-block p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-light);
+  margin-bottom: 18px;
+}
+
+.story-block p:last-child {
+  margin-bottom: 0;
+}
+
+.story-block .story-lead {
+  font-size: 19px;
+  color: var(--color-dark);
+  margin-bottom: 22px;
+}
+
 .legal-back {
   text-align: center;
   margin-top: 32px;
@@ -1880,7 +1908,8 @@ img {
 }
 
 @media (max-width: 600px) {
-  .legal-block {
+  .legal-block,
+  .story-block {
     padding: 24px 22px;
   }
   .legal-table th,
